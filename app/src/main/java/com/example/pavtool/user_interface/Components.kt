@@ -1,16 +1,25 @@
-package com.example.supserapp.user_interface
+package com.example.pavtool.user_interface
 
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.supserapp.ui.theme.md_theme_light_secondary
-import com.example.supserapp.ui.theme.md_theme_light_onSecondary
+import com.example.pavtool.ui.theme.md_theme_light_secondary
+import com.example.pavtool.ui.theme.md_theme_light_onSecondary
 
+/**
+ * A custom themed button with a specific width.
+ *
+ * @param text The text to display on the button.
+ * @param width The width of the button.
+ * @param onClick The action to perform when the button is clicked.
+ */
 @Composable
-fun themedButton(text: String, width: Dp = 150.dp, onClick: () -> Unit) {
+fun ThemedButton(text: String, width: Dp = 150.dp, onClick: () -> Unit) {
     Button(
         modifier = Modifier.width(width),
         onClick = onClick,
@@ -22,6 +31,13 @@ fun themedButton(text: String, width: Dp = 150.dp, onClick: () -> Unit) {
     }
 }
 
+/**
+ * A custom menu button with a specific width.
+ *
+ * @param text The text to display on the button.
+ * @param width The width of the button.
+ * @param onClick The action to perform when the button is clicked.
+ */
 @Composable
 fun MenuButton(text: String, width: Dp = 250.dp, onClick: () -> Unit) {
     Button(

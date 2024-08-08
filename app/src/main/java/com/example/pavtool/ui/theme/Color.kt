@@ -1,4 +1,4 @@
-package com.example.supserapp.ui.theme
+package com.example.pavtool.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

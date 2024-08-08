@@ -1,14 +1,14 @@
-package com.example.supserapp.user_interface
+package com.example.pavtool.user_interface
 
-import androidx.compose.material3.*
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.supserapp.R
-import com.example.supserapp.ui.theme.*
+import com.example.pavtool.R
+import com.example.pavtool.ui.theme.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import androidx.compose.material.ModalDrawer
@@ -19,13 +19,29 @@ import androidx.compose.foundation.Image
 import androidx.compose.ui.Alignment
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
-import com.example.supserapp.navigation.AppSection
+import com.example.pavtool.navigation.AppSection
+import androidx.compose.material3.*
 
+/**
+ * Main application composable, sets up the navigation drawer and main content.
+ *
+ * @param drawerState The state of the navigation drawer.
+ * @param scope The coroutine scope for managing state changes.
+ * @param selectedTab The currently selected tab.
+ * @param makePhoneCall Function to initiate a phone call.
+ */
 @Composable
-fun MyApp(drawerState: DrawerState, scope: CoroutineScope, selectedTab: MutableState<AppSection>, makePhoneCall: (String) -> Unit) {
+fun MyApp(
+    drawerState: DrawerState,
+    scope: CoroutineScope,
+    selectedTab: MutableState<AppSection>,
+    makePhoneCall: (String) -> Unit
+) {
     ModalDrawer(
         drawerState = drawerState,
-        drawerContent = { DrawerContent(drawerState, scope, selectedTab.value) { newTab -> selectedTab.value = newTab } },
+        drawerContent = {
+            DrawerContent(drawerState, scope) { newTab -> selectedTab.value = newTab }
+        },
         content = {
             Scaffold(
                 topBar = { TopBar(drawerState, scope, selectedTab.value) },
@@ -35,9 +51,23 @@ fun MyApp(drawerState: DrawerState, scope: CoroutineScope, selectedTab: MutableS
     )
 }
 
+/**
+ * Drawer content for the navigation drawer.
+ *
+ * @param drawerState The state of the navigation drawer.
+ * @param scope The coroutine scope for managing state changes.
+ * @param onTabSelected Function to handle tab selection.
+ */
 @Composable
-fun DrawerContent(drawerState: DrawerState, scope: CoroutineScope, selectedTab: AppSection, onTabSelected: (AppSection) -> Unit) {
-    Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+fun DrawerContent(
+    drawerState: DrawerState,
+    scope: CoroutineScope,
+    onTabSelected: (AppSection) -> Unit
+) {
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         Header(drawerState, scope, headerText = "Menu")
         Spacer(modifier = Modifier.height(10.dp))
         MenuButton("Supplementary Services", 250.dp) {
@@ -51,6 +81,13 @@ fun DrawerContent(drawerState: DrawerState, scope: CoroutineScope, selectedTab: 
     }
 }
 
+/**
+ * Top bar composable for the application.
+ *
+ * @param drawerState The state of the navigation drawer.
+ * @param scope The coroutine scope for managing state changes.
+ * @param selectedTab The currently selected tab.
+ */
 @Composable
 fun TopBar(drawerState: DrawerState, scope: CoroutineScope, selectedTab: AppSection) {
     val headerText = when (selectedTab) {
@@ -60,6 +97,13 @@ fun TopBar(drawerState: DrawerState, scope: CoroutineScope, selectedTab: AppSect
     Header(drawerState, scope, headerText)
 }
 
+/**
+ * Main content composable for the application.
+ *
+ * @param selectedTab The currently selected tab.
+ * @param padding Padding values for the content.
+ * @param makePhoneCall Function to initiate a phone call.
+ */
 @Composable
 fun Content(selectedTab: AppSection, padding: PaddingValues, makePhoneCall: (String) -> Unit) {
     Box(modifier = Modifier.padding(padding)) {
@@ -70,6 +114,13 @@ fun Content(selectedTab: AppSection, padding: PaddingValues, makePhoneCall: (Str
     }
 }
 
+/**
+ * Header composable for the navigation drawer.
+ *
+ * @param drawerState The state of the navigation drawer.
+ * @param scope The coroutine scope for managing state changes.
+ * @param headerText The text to display in the header.
+ */
 @Composable
 fun Header(drawerState: DrawerState, scope: CoroutineScope, headerText: String) {
     Box {
@@ -123,7 +174,11 @@ fun Header(drawerState: DrawerState, scope: CoroutineScope, headerText: String) 
                         }
                     }
                 }) {
-                    Icon(Icons.Filled.Menu, contentDescription = "Menu", tint = md_theme_light_primary)
+                    Icon(
+                        Icons.Filled.Menu,
+                        contentDescription = "Menu",
+                        tint = md_theme_light_primary
+                    )
                 }
             }
         }

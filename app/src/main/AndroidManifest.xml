@@ -17,13 +17,13 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Supserapp"
+        android:theme="@style/Theme.pavtool"
         tools:targetApi="31">
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.Supserapp">
+            android:theme="@style/Theme.pavtool">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

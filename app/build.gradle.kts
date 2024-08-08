@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.supserapp"
+    namespace = "com.example.pavtool"
     compileSdk = 34 //(rootProject.extra["compileSdkVersion"] as Int)
 
     defaultConfig {
-        applicationId = "com.example.supserapp"
+        applicationId = "com.example.pavtool"
         minSdk = 30
         targetSdk = 34
         versionCode = 1

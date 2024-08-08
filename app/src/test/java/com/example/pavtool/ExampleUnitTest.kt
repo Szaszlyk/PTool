@@ -1,4 +1,4 @@
-package com.example.supserapp
+package com.example.pavtool
 
 import org.junit.Test
 

@@ -1,4 +1,4 @@
-package com.example.supserapp.ui.theme
+package com.example.pavtool.ui.theme
 
 import android.app.Activity
 import android.os.Build
@@ -23,11 +23,11 @@ private val LightColors = lightColorScheme(
     secondary = md_theme_light_secondary,
     onSecondary = md_theme_light_onSecondary,
     secondaryContainer = md_theme_light_secondaryContainer,
-    onSecondaryContainer = md_theme_light_onSecondaryContainer,
+    onSecondaryContainer = md_theme_light_secondaryContainer,
     tertiary = md_theme_light_tertiary,
     onTertiary = md_theme_light_onTertiary,
     tertiaryContainer = md_theme_light_tertiaryContainer,
-    onTertiaryContainer = md_theme_light_onTertiaryContainer,
+    onTertiaryContainer = md_theme_light_tertiaryContainer,
     error = md_theme_light_error,
     errorContainer = md_theme_light_errorContainer,
     onError = md_theme_light_onError,
@@ -47,7 +47,6 @@ private val LightColors = lightColorScheme(
     scrim = md_theme_light_scrim,
 )
 
-
 private val DarkColors = darkColorScheme(
     primary = md_theme_dark_primary,
     onPrimary = md_theme_dark_onPrimary,
@@ -56,7 +55,7 @@ private val DarkColors = darkColorScheme(
     secondary = md_theme_dark_secondary,
     onSecondary = md_theme_dark_onSecondary,
     secondaryContainer = md_theme_dark_secondaryContainer,
-    onSecondaryContainer = md_theme_dark_onSecondaryContainer,
+    onSecondaryContainer = md_theme_dark_secondaryContainer,
     tertiary = md_theme_dark_tertiary,
     onTertiary = md_theme_dark_onTertiary,
     tertiaryContainer = md_theme_dark_tertiaryContainer,
@@ -80,19 +79,24 @@ private val DarkColors = darkColorScheme(
     scrim = md_theme_dark_scrim,
 )
 
+/**
+ * Custom theme for the PAV Tool.
+ *
+ * @param darkTheme Whether to use dark theme or not.
+ * @param dynamicColor Whether to use dynamic color scheme or not.
+ * @param content The composable content to apply the theme to.
+ */
 @Composable
-fun SupserappTheme(
-        darkTheme: Boolean = isSystemInDarkTheme(),
-        // Dynamic color is available on Android 12+
-        dynamicColor: Boolean = true,
-        content: @Composable () -> Unit
+fun PAVToolTheme(
+    darkTheme: Boolean = isSystemInDarkTheme(),
+    dynamicColor: Boolean = true,
+    content: @Composable () -> Unit
 ) {
     val colorScheme = when {
         dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
             val context = LocalContext.current
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
-
         darkTheme -> DarkColors
         else -> LightColors
     }
@@ -106,8 +110,8 @@ fun SupserappTheme(
     }
 
     MaterialTheme(
-            colorScheme = colorScheme,
-            typography = Typography,
-            content = content
+        colorScheme = colorScheme,
+        typography = Typography,
+        content = content
     )
 }

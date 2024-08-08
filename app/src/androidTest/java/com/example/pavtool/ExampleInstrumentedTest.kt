@@ -1,4 +1,4 @@
-package com.example.supserapp
+package com.example.pavtool
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

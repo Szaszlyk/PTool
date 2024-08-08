@@ -1,4 +1,4 @@
-package com.example.supserapp.user_interface
+package com.example.pavtool.user_interface
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -7,8 +7,8 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.material3.*
-import com.example.supserapp.ui.theme.md_theme_light_primary
-import com.example.supserapp.ui.theme.md_theme_light_secondaryContainer
+import com.example.pavtool.ui.theme.md_theme_light_primary
+import com.example.pavtool.ui.theme.md_theme_light_secondaryContainer
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -16,9 +16,14 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.ui.Alignment
-import com.example.supserapp.ui.theme.md_theme_light_secondary
-import com.example.supserapp.ui.theme.md_theme_light_tertiaryContainer
+import com.example.pavtool.ui.theme.md_theme_light_secondary
+import com.example.pavtool.ui.theme.md_theme_light_tertiaryContainer
 
+/**
+ * Composable for the Supplementary Services screen.
+ *
+ * @param makePhoneCall Function to initiate a phone call.
+ */
 @Composable
 fun SupplementaryServicesScreen(makePhoneCall: (String) -> Unit) {
     val cfNumber = remember { mutableStateOf("") }
@@ -29,7 +34,7 @@ fun SupplementaryServicesScreen(makePhoneCall: (String) -> Unit) {
             modifier = Modifier.fillMaxWidth(0.8f),
             horizontalArrangement = Arrangement.Center
         ) {
-            enterCFNumberFunction(cfNumber)
+            EnterCFNumberFunction(cfNumber)
         }
         Spacer(modifier = Modifier.height(10.dp))
         Row(
@@ -44,19 +49,54 @@ fun SupplementaryServicesScreen(makePhoneCall: (String) -> Unit) {
                 .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            CallForwardingOption("Call Forwarding Unconditional", "21", "#", cfNumber) { combinedValue = it; makePhoneCall(it) }
+            CallForwardingOption(
+                title = "Call Forwarding Unconditional",
+                prefix = "21",
+                suffix = "#",
+                cfNumber = cfNumber
+            ) { combinedValue = it; makePhoneCall(it) }
             Spacer(modifier = Modifier.height(10.dp))
-            CallForwardingOption("Call Forwarding When Busy", "67", "#", cfNumber) { combinedValue = it; makePhoneCall(it) }
+            CallForwardingOption(
+                title = "Call Forwarding When Busy",
+                prefix = "67",
+                suffix = "#",
+                cfNumber = cfNumber
+            ) { combinedValue = it; makePhoneCall(it) }
             Spacer(modifier = Modifier.height(10.dp))
-            CallForwardingOption("Call Forwarding When Not Reachable", "61", "#", cfNumber) { combinedValue = it; makePhoneCall(it) }
+            CallForwardingOption(
+                title = "Call Forwarding When Not Reachable",
+                prefix = "61",
+                suffix = "#",
+                cfNumber = cfNumber
+            ) { combinedValue = it; makePhoneCall(it) }
             Spacer(modifier = Modifier.height(10.dp))
-            CallForwardingOption("Call Forwarding When Not Answered", "62", "#", cfNumber) { combinedValue = it; makePhoneCall(it) }
+            CallForwardingOption(
+                title = "Call Forwarding When Not Answered",
+                prefix = "62",
+                suffix = "#",
+                cfNumber = cfNumber
+            ) { combinedValue = it; makePhoneCall(it) }
         }
     }
 }
 
+/**
+ * Composable for displaying a call forwarding option.
+ *
+ * @param title The title of the call forwarding option.
+ * @param prefix The prefix code for the call forwarding.
+ * @param suffix The suffix code for the call forwarding.
+ * @param cfNumber The call forwarding number.
+ * @param onCombinedValueChange Function to handle the combined value change.
+ */
 @Composable
-fun CallForwardingOption(title: String, prefix: String, suffix: String, cfNumber: MutableState<String>, onCombinedValueChange: (String) -> Unit) {
+fun CallForwardingOption(
+    title: String,
+    prefix: String,
+    suffix: String,
+    cfNumber: MutableState<String>,
+    onCombinedValueChange: (String) -> Unit
+) {
     Column(
         modifier = Modifier
             .background(md_theme_light_secondaryContainer, shape = RoundedCornerShape(10.dp))
@@ -73,30 +113,45 @@ fun CallForwardingOption(title: String, prefix: String, suffix: String, cfNumber
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceAround
         ) {
-            themedButton("Registration", 150.dp) { onCombinedValueChange("**${prefix}*${cfNumber.value}${suffix}") }
-            themedButton("Activation", 150.dp) { onCombinedValueChange("*${prefix}*${cfNumber.value}*11${suffix}") }
+            ThemedButton("Registration", 150.dp) {
+                onCombinedValueChange("**${prefix}*${cfNumber.value}${suffix}")
+            }
+            ThemedButton("Activation", 150.dp) {
+                onCombinedValueChange("*${prefix}*${cfNumber.value}*11${suffix}")
+            }
         }
         Spacer(modifier = Modifier.height(2.5.dp))
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceAround
         ) {
-            themedButton("Interrogate", 150.dp) { onCombinedValueChange("*#${prefix}#") }
-            themedButton("Deactivate", 150.dp) { onCombinedValueChange("#${prefix}#") }
+            ThemedButton("Interrogate", 150.dp) {
+                onCombinedValueChange("*#${prefix}#")
+            }
+            ThemedButton("Deactivate", 150.dp) {
+                onCombinedValueChange("#${prefix}#")
+            }
         }
         Spacer(modifier = Modifier.height(2.5.dp))
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceAround
         ) {
-            themedButton("Erase all", 150.dp) { onCombinedValueChange("##${prefix}*#") }
+            ThemedButton("Erase all", 150.dp) {
+                onCombinedValueChange("##${prefix}*#")
+            }
         }
         Spacer(modifier = Modifier.height(2.5.dp))
     }
 }
 
+/**
+ * Composable for entering the call forwarding number.
+ *
+ * @param cfNumber The call forwarding number.
+ */
 @Composable
-fun enterCFNumberFunction(cfNumber: MutableState<String>) {
+fun EnterCFNumberFunction(cfNumber: MutableState<String>) {
     val options = remember {
         mutableStateListOf(
             "" to "User entry",
